@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FLAMES</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Sans+MS&display=swap" rel="stylesheet">
+</head>
+
+<style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('https://scontent.fmnl25-1.fna.fbcdn.net/v/t1.15752-9/411626854_736607491349327_6841481793930365469_n.png?_nc_cat=103&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeGDvXoemivo3egcQsMFJwhl9Wh3X8E0fv31aHdfwTR-_azhK_BF3xGIugwpznBPWBAonuxVmiv8sazOnzQQYpRd&_nc_ohc=VoScR3lv490AX8YFqZf&_nc_ht=scontent.fmnl25-1.fna&oh=03_AdTlfqV8OlvI5VVnVnkgDetFbNi0R21Be4szn-LuSDtFNA&oe=65BB65B6');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Comic Sans MS', cursive;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .container h1 {
+            position: absolute;
+            top: 200px;
+            left: 42%;
+            transform: translateX(-50%);
+            font-size: 50px;
+            color: black;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 8px;
+            font-family: 'Comic Sans MS', cursive;
+            animation: titleAnimation 1s infinite alternate; 
+        }
+
+        @keyframes titleAnimation {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.1);
+            }
+        }
+
+        .result {
+            margin-top: 20px;
+        }
+
+        .btss {
+        position: relative;
+        margin-top: 0;
+        border: 0;
+        border-radius: 100px;
+        box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+        box-sizing: border-box;
+        background :linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+        display: inline-block;
+        font-family: 'Comic Sans MS', cursive;
+        font-size: 20px;
+        color: #ffff;
+        justify-content: center;
+        padding: 7px 20px;
+        text-align: center;
+        line-height: 1em;
+        text-decoration: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        white-space: nowrap;
+        cursor: pointer;
+        }
+
+        .btss:before,
+        .btss:after {
+            content: '❤️❤️';
+            position: absolute;
+            font-size: 18px;
+            color: #e74c3c;
+        }
+
+        .btss:before {
+            top: -10px;
+            left: 10px;
+        }
+
+        .btss:after {
+            bottom: -10px;
+            right: 10px;
+        }
+
+        .btss:hover {
+            box-shadow: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+            transform: scale(1.05) rotate(-1deg);
+        }
+
+        .game-mechanics-button {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        #backButton {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            border: none;
+        }
+
+        h2 {
+        color: white; 
+        }
+
+        #gameMechanicsModal {
+            display: none;
+            position: fixed;
+            z-index: 3;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        #gameMechanicsModal .modal-content {
+            background-color: #4e8cff;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
+            color: black;
+        }
+
+        #gameMechanicsModal .close {
+            color: #333;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #gameMechanicsModal .close:hover,
+        #gameMechanicsModal .close:focus {
+            color: #000;
+            text-decoration: none;
+        }
+
+        .input-group input {
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 5px;
+        }
+
+        #sound-icon-content {
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .top-right {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+        }
+
+        #sound-icon {
+            margin-top: 30px; 
+        }
+
+        #sound-icon-content:hover {
+            background-color: #3498db;
+        }
+
+</style>
+
+<body>
+        <div class="video-container">
+            <div class="container">
+            <h1>FLAMES</h1></br>
+            <div class="input-group mb-3">
+                <input type="text" id="person1" placeholder="Enter Name 1">
+                <input type="text" id="person2" placeholder="Enter Name 2">
+                <br/>
+                <br/>
+                <button onclick="calculateFLAMES()" class="btss">Calculate</button>
+            </div>
+            <div class="result">
+                <p id="flamesResult"></p>
+            </div>
+        </div>
+
+        <div id="backButton" onclick="goToIndexPage()">↩</div> 
+
+        <div class="game-mechanics-button" onclick="showGameMechanics()">❓</div>
+
+        <!-- Game mechanics modal -->
+        <div id="gameMechanicsModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeGameMechanics()">&times;</span>
+                <h2>Game Mechanics</h2>
+                <p>The game involves crossing out common letters in the names of the two individuals and 
+                  counting the remaining letters to determine the relationship outcome. It's often played 
+                  for fun during leisure time or as a light-hearted activity during social gatherings.</p>
+                <p>1. Enter the names into both provided boxes.</p>
+                <p>2. Click the "calculate" button to determine the relationship between the entered names.</p>
+                <p>3. The names and their corresponding relationships will be displayed below.</p>
+            </div>
+        </div>
+
+        <div id="sound-icon" class="top-right" onclick="toggleSound()">
+            <span id="sound-icon-content" role="img" aria-label="Sound Icon">🔊</span>
+        </div>
+    
+<script>
+            function calculateFLAMES() {
+                const person1 = document.getElementById('person1').value.trim().toLowerCase().replace(/[^a-z]/g, '');
+                const person2 = document.getElementById('person2').value.trim().toLowerCase().replace(/[^a-z]/g, '');
+
+                if (person1 === '' || person2 === '') {
+                    alert('Please enter both names before calculating.');
+                    return;
+                }
+
+                const relationship = ['Friends', 'Lovers', 'Admirers/Attraction', 'Marriage', 'Enemies', 'Siblings'];
+
+                let combinedNames = (person1 + person2).split('');
+
+                combinedNames.forEach((char) => {
+                    if (person2.includes(char)) {
+                        combinedNames = combinedNames.filter((c) => c !== char);
+                    }
+                });
+
+                const remainingLetters = combinedNames.length;
+
+                let index = 0;
+                let count = 6;
+
+                while (relationship.length > 1) {
+                    index = (index + remainingLetters - 1) % count;
+                    relationship.splice(index, 1);
+                    count--;
+                }
+
+                const result = relationship[0];
+                displayResult(result);
+            }
+
+            function displayResult(result) {
+                const resultElement = document.getElementById('flamesResult');
+                resultElement.innerText = `The relationship is: ${result}`;
+            }
+
+            function showGameMechanics() {
+                const modal = document.getElementById('gameMechanicsModal');
+                modal.style.display = 'block';
+            }
+
+            function closeGameMechanics() {
+                const modal = document.getElementById('gameMechanicsModal');
+                modal.style.display = 'none';
+            }
+
+            // Close the modal if the user clicks outside the modal
+            window.onclick = function (event) {
+                const modal = document.getElementById('gameMechanicsModal');
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            };
+
+            let soundEnabled = true;
+            let soundPlayer; // Define the sound player globally
+
+            function toggleSound() {
+                soundEnabled = !soundEnabled;
+                const musicSrc = "C:\Users\John Kenneth\OneDrive\Documents\ChildhoodGames\childhoodgames.mp3";
+
+                if (soundEnabled) {
+                    soundPlayer = new Audio(musicSrc);
+                    soundPlayer.loop = true;
+                    soundPlayer.play();
+                } else if (soundPlayer) {
+                    soundPlayer.pause();
+                }
+
+                document.getElementById('sound-icon-content').innerText = soundEnabled ? '🔊' : '🔇';
+            }
+
+            function goToIndexPage() {
+                // Redirect to the index page
+                window.location.href = 'index.html';
+            }
+</script>
+</body>
+</html>
+
+

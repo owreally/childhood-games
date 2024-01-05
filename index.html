@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Childhood Games</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Slackey&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Sans+MS&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-w1csGqG4JSy4M5PQVIBwCJ8MApXU9L6n5ERlyuvH8MXG90+1XYVezBJEwMSPXcVe/MtPI9+dtXykYt3UFrZp8A==" crossorigin="anonymous" />
+</head>
+
+<style>
+        * {
+        transition: all ease 0.5s;
+        }
+
+        body {
+        background-image: url('https://scontent.fmnl25-2.fna.fbcdn.net/v/t1.15752-9/411834249_745198220353703_7633152762843100258_n.png?_nc_cat=102&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeGoiTONbxCVLd7YWU1AiZysS81a0Cg7oSBLzVrQKDuhIAtsj_0rA8PNaoEqdiO4JKh8h4ucd86Ayrca7RHPreyY&_nc_ohc=wVvD30KuP68AX-0h42t&_nc_ht=scontent.fmnl25-2.fna&oh=03_AdS65pa5a9nP9Os7QIt5ogeZl4ZblvTgiJZydZJkrnrIWw&oe=65BB3366');
+        background-size: 100% auto;
+        font-family: 'Slackey', cursive;
+        }
+
+        .container {
+        width: 100%;
+        height: 100%;
+        padding-left: 20%;
+        opacity: .6;
+        }
+
+        .squishy {
+        position: absolute;
+        width: 150px;
+        height: 150px;
+        bottom: 0;
+        left: 0;
+        z-index: 50;
+        }
+        
+        .squishy.bug1 {
+        background-image: url('https://www.clipartbest.com/cliparts/RcG/E9B/RcGE9B5Xi.png');
+        background-size: 100% 100%;
+        }
+
+        .active {
+        bottom: 90%;
+        }
+        
+        #opening-container, h1, #play-button, #exit-button {
+        position: absolute;
+        }
+
+        #opening-container {
+        top: 30%; 
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px; 
+        font-size: 15px; 
+        z-index: 1;
+        }
+
+        #settings-button {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        #question-button {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 2;
+        }
+
+        
+        h1 {
+            top: 40%;
+            left: 5%;
+            transform: translate(-50%, -50%);
+            font-family: 'Slackey', cursive;
+            font-size: 3em;
+            margin: 0;
+            position: relative;
+            animation: buzz 0.1s alternate infinite;
+            color: #ffd764;
+            z-index: 1;
+        }
+
+        @keyframes buzz {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-2px);
+            }
+        }
+
+        .modal {
+        display: none;
+        position: fixed;
+        z-index: 2;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+        background-color: #4e8cff;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 10px; 
+        text-align: center;
+        max-width: 400px;
+        font-family: 'Comic Sans MS', cursive;
+        }
+
+        h2 {
+        color: white; 
+        }
+
+        label {
+        margin-right: 10px;
+        }
+
+        .close {
+        color: #333;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        font-family: 'Comic Sans MS', cursive;
+        }
+
+        .close:hover,
+        .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+        }
+
+        .control-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+        }
+
+        .control {
+        display: flex;
+        align-items: center;
+        margin: 0 15px; 
+        cursor: pointer;
+        transition: color 0.3s ease; 
+        }
+
+        .control:hover {
+        color: #333; 
+        }
+
+        .control span {
+        margin-right: 10px;
+        }
+
+        #gameMechanicsModal {
+        display: none;
+        position: fixed;
+        z-index: 3;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.7);
+        font-family: 'Comic Sans MS', cursive;
+        }
+
+        #gameMechanicsModal .modal-content {
+        background-color: #4e8cff;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        max-width: 400px;
+        font-family: 'Comic Sans MS', cursive;
+        }
+
+        #gameMechanicsModal .close {
+        color: #333;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        font-family: 'Comic Sans MS', cursive;
+        }
+
+        #gameMechanicsModal .close:hover,
+        #gameMechanicsModal .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+        font-family: 'Comic Sans MS', cursive;
+        }
+
+        #soundIcon,#musicIcon {
+        font-size: 20px;
+        }
+
+        #play-button {
+        position: absolute;
+        top: 50%; 
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: row; 
+        align-items: center;
+        justify-content: center;
+        }
+
+        #sos-button,
+        #flames-button,
+        #exit-button {
+            background: linear-gradient(144deg, #AF40FF, #5B42F3 50%, #00DDEB);
+            color: #ffff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 100px;
+            margin: 10px; 
+            display: inline-block;
+            font-family: 'Comic Sans MS', cursive;
+            font-size: 40px;
+            justify-content: center;
+            padding: 7px 20px;
+            text-align: center;
+            line-height: 1em;
+            text-decoration: none;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        #flames-button {
+            background: linear-gradient(144deg, #AF40FF, #5B42F3 50%, #00DDEB); 
+        }
+
+        #exit-button {
+            background: linear-gradient(144deg, #AF40FF, #5B42F3 50%, #00DDEB);
+        }
+
+        #exit-button {
+            top: 90%; 
+        }
+
+        #sos-button:hover {
+            box-shadow: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+            transform: scale(1.05) rotate(-1deg);
+        }
+
+        #flames-button:hover {
+            box-shadow: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+            transform: scale(1.05) rotate(-1deg);
+        }
+
+        #exit-button:hover {
+            box-shadow: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+            transform: scale(1.05) rotate(-1deg);
+        }
+
+        .mini-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            width: 80%; 
+            max-width: 400px; 
+            padding: 200px;
+            border-radius: 10px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+            z-index: 1; 
+        }
+</style>
+
+<body>
+    <div class="background-container">
+    </div>
+
+    <div class='container'>
+        <h4 id="log"></h4>
+        <div class="squishy bug1"></div>
+    </div>
+        
+    <div class="mini-container">
+        <div id="opening-container">
+            <h1>Want to play a game?</h1>
+        </div>
+
+        <div id="play-button">
+            <button id="sos-button" onclick="startSOS()">SOS</button>
+            <button id="flames-button" onclick="startFLAMES()">FLAMES</button>
+            <button id="exit-button" onclick="exitGame()">EXIT</button>
+        </div>
+    </div>
+
+    <div id="settings-button" onclick="toggleSettingsContent()">⚙️</div>
+
+    <!-- Modal for game instructions and controls -->
+    <div id="gameModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Controls</h2>
+      <p>To go to the game, select one of two interesting games. Exit the game by clicking Exit. Adjust sound and music settings below:</p>
+      <div class="control-container">
+        <div class="control" onclick="toggleSound()">
+          <span id="soundIcon">🔊</span>
+        </div>
+        <div class="control" onclick="toggleMusic()">
+          <span id="musicIcon">🎵</span> 
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <audio id="backgroundMusic" loop>
+        <source src="C:\Users\John Kenneth\OneDrive\Documents\ChildhoodGames\childhoodgames.mp3" type="audio/mp3">
+        Your browser does not support the audio tag.
+    </audio>
+
+    <div id="question-button" onclick="showGameMechanics()">❓</div>
+
+    <!-- Game mechanics modal -->
+    <div id="gameMechanicsModal" class="modal">
+        <div class="modal-content">
+        <span id="gameMechanicsClose" class="close">&times;</span>
+        <h2>Did you know?</h2>
+        <p>“FLAMES is a Filipino game predicting relationships through an acronym representing stages like Friendship and Marriage. SOS, known as Tic Tac Toe in the Philippines, is a popular and simple game played on a three-by-three grid. Both games reflect Filipino culture's love for social interactions and friendly competitions, with FLAMES predicting relationships and SOS being a favorite pastime for quick and spontaneous matches.</p>
+        </div>
+    </div>
+        
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(function() {
+    $('.container').on('click', '.squishy', function() {
+        $(this).remove();
+    });
+    
+    setInterval(moveSquishies, 100);
+    setInterval(addSquishy, 1000);
+    //setInterval($("#log").empty(), 500);
+    });
+
+
+    var addSquishy = function() {
+    newY = Math.floor(Math.random() * parseInt($(document).width())-200);
+    //$('#log').append('y' + newY);
+    $('.container').append('<div class="squishy bug1" style="left: ' + newY + 'px;"></div>');
+    }
+
+    var moveSquishies = function() {
+    $('.squishy').each( function() {
+        currentX = parseInt($(this).css("left"));
+        currentY = parseInt($(this).css("bottom"));
+        newY = currentY + Math.floor((Math.random() * 20) + 80 );
+        newX = currentX + (Math.floor(Math.random() * 100) ) - 50;
+        //$('#log').prepend("X:"+ newX + " Y:" + newY + "<br>");
+        $(this).css("left", newX + "px")
+        $(this).css("bottom", newY+ "px");
+        
+        if(newY > $(document).height())
+        $(this).remove();
+    })
+    }
+
+    function startSOS() {
+        window.location.href = 'SOS.html';
+    }
+
+    function startFLAMES() {
+        window.location.href = 'FLAMES.html';
+    }
+
+    function redirectToGame() {
+        window.location.href = 'game.html';
+    }
+
+    function toggleSettingsContent() {
+    document.getElementById('gameModal').style.display = 'block';
+    }
+
+    function closeModal() {
+    document.getElementById('gameModal').style.display = 'none';
+    }
+
+    window.onclick = function (event) {
+    var modal = document.getElementById('gameModal');
+    if (event.target == modal) {
+        modal.style.display = 'none';
+    }
+    };
+
+    let soundOn = true;
+    let musicOn = true;
+
+    const backgroundMusic = document.getElementById('backgroundMusic');
+
+    function toggleSound() {
+        soundOn = !soundOn;
+        updateSoundIcon();
+
+        // Check if sound is turned off
+        if (!soundOn) {
+            // Mute the sound
+            // Adjust the volume as needed (0.0 to 1.0)
+            backgroundMusic.volume = 0.0;
+        } else {
+            // Unmute the sound
+            // Adjust the volume as needed (0.0 to 1.0)
+            backgroundMusic.volume = 1.0;
+        }
+    }
+
+    // Function to toggle music
+    function toggleMusic() {
+        musicOn = !musicOn;
+        updateMusicIcon();
+
+        // Check if music is turned off
+        if (!musicOn) {
+            // Pause the music
+            backgroundMusic.pause();
+        } else {
+            // Play the music
+            backgroundMusic.play();
+        }
+    }
+
+    function updateSoundIcon() {
+        const soundIcon = document.getElementById('soundIcon');
+        soundIcon.innerHTML = soundOn ? '🔊' : '🔇';
+    }
+
+    function updateMusicIcon() {
+        const musicIcon = document.getElementById('musicIcon');
+        musicIcon.innerHTML = musicOn ? '🎵' : '🔇';
+
+        // If music is turned off, pause the music
+        if (!musicOn) {
+            backgroundMusic.pause();
+        }
+    }
+
+    // Play background music when the page loads
+    window.onload = function () {
+        backgroundMusic.play();
+    };
+
+    function showGameMechanics() {
+    const modal = document.getElementById('gameMechanicsModal');
+    const closeButton = document.getElementById('gameMechanicsClose');
+
+    modal.style.display = 'block';
+
+    closeButton.onclick = function () {
+        modal.style.display = 'none';
+    };
+
+    window.onclick = function (event) {
+        if (event.target === modal) {
+        modal.style.display = 'none';
+        }
+    };
+    }
+
+    function exitGame() {
+    var confirmExit = confirm('Are you sure you want to exit?');
+    if (confirmExit) {
+        window.top.close();
+    }
+    }
+
+     document.addEventListener("mousemove", function(e) {
+            // Get the position of the cursor relative to the window
+            var x = e.clientX / window.innerWidth;
+            var y = e.clientY / window.innerHeight;
+
+            // Calculate the hue value based on cursor position
+            var hue = x * 360;
+
+            // Set the color of the h1 tag using HSL, limiting it to white, black, and yellow
+            document.querySelector("h1").style.color = "hsl(" + hue + ", 100%, 50%)";
+        });
+</script>
+</body>
+</html>

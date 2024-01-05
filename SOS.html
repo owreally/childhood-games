@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S.O.S</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Sans+MS&display=swap" rel="stylesheet">
+</head>
+
+<style>
+    body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('https://scontent.fmnl25-1.fna.fbcdn.net/v/t1.15752-9/411988167_1391742778101052_3902323986252746642_n.png?_nc_cat=108&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeFabhGHdKqy4sZvbhH9i1hdEIZoDBJEN_8QhmgMEkQ3__hp2yAwl4sOIV4jROi4llDXhv7PKs_fnOAbqr1e2fDf&_nc_ohc=CcodTV-7dIMAX_2oTPb&_nc_ht=scontent.fmnl25-1.fna&oh=03_AdRGg16FvgiTH4mvHWQnBdGZi1ckBLmXBexsmpO8bh9Ldw&oe=65BB5720');
+            background-size: 100% auto;
+            font-family: 'Comic Sans MS', cursive;
+        }
+
+        #title {
+        position: absolute;
+        top: 150px;
+        left: 44%;
+        transform: translateX(-50%);
+        font-size: 50px;
+        color: black;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        letter-spacing: 8px; 
+        font-family: 'Comic Sans MS', cursive;
+        animation: titleAnimation 1s infinite alternate; 
+        }
+
+        @keyframes titleAnimation {
+            from {
+                transform: scale(1);
+            }
+            to {
+                transform: scale(1.1);
+            }
+        }
+
+        #board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+        }
+
+        .cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            font-weight: bold;
+            border: 2px solid #333;
+            cursor: pointer;
+            background-color: #f0f0f0;
+        }
+
+        #result-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 2em;
+            z-index: 1;
+        }
+
+        #result-message {
+        margin-bottom: 10px;
+        }
+
+        #new-game-btn {
+            background: linear-gradient(144deg, #AF40FF, #5B42F3 50%, #00DDEB);
+            color: white;
+            padding: 10px 10px;
+            font-size: 1em;
+            cursor: pointer;
+            border: none;
+            font-family: 'Comic Sans MS', cursive;
+            transition: background 0.3s ease;
+        }
+
+        #new-game-btn:hover {
+            background: linear-gradient(144deg, #6f2598, #422a86 50%, #00a5ad);
+        }
+
+        #new-game-btn-container {
+        text-align: center;
+        position: absolute;
+        bottom: 250px;
+        left: 50%;
+        transform: translateX(-50%);
+        }
+
+        .game-mechanics-button {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        #backButton {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #3498db;
+            color: white;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        h2 {
+        color: white; 
+        }
+
+        #gameMechanicsModal {
+            display: none;
+            position: fixed;
+            z-index: 3;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        #gameMechanicsModal .modal-content {
+            background-color: #4e8cff;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
+            color: black;
+        }
+
+        #gameMechanicsModal .close {
+            color: #333;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #gameMechanicsModal .close:hover,
+        #gameMechanicsModal .close:focus {
+            color: #000;
+            text-decoration: none;
+        }
+
+        #sound-icon-content {
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .top-right {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+        }
+
+        #sound-icon {
+            margin-top: 30px; 
+        }
+
+        #sound-icon-content:hover {
+            background-color: #3498db;
+        }
+</style>
+
+<body>
+    <div id="title">S.O.S</div>
+    <div id="board"></div>
+    <div id="result-screen">
+        <div id="result-message"></div>
+        <div id="new-game-btn-container">
+            <button id="new-game-btn" onclick="startNewGame()">New Game</button>
+        </div>
+    </div>
+
+    <div id="backButton" onclick="goToIndexPage()">↩</div>
+
+    <div class="game-mechanics-button" onclick="showGameMechanics()">❓</div>
+
+    <!-- Game mechanics modal -->
+    <div id="gameMechanicsModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeGameMechanics()">&times;</span>
+            <h2>Game Mechanics</h2>
+            <p>The game involves two players taking turns to mark 'S' or 'O' in an empty cell on the grid. The objective is to be the first to form a line of three consecutive 'S' or 'O' horizontally, vertically, or diagonally.</p>
+            <p>1. Start by entering the names of the players.</p>
+            <p>2. Click the "play" button to start the game.</p>
+            <p>3. Players take turns marking cells with 'S' or 'O.'</p>
+            <p>4. The game will automatically detect a win or a draw.</p>
+            <p>5. Enjoy the quick and friendly competition with your friends or family!</p>
+            <p>Embrace the joy of playing SOS as a favorite pastime, creating fond memories and bonding moments with loved ones.</p>
+        </div>
+    </div>
+
+    <div id="sound-icon" class="top-right" onclick="toggleSound()">
+        <span id="sound-icon-content" role="img" aria-label="Sound Icon">🔊</span>
+    </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+            const board = document.getElementById('board');
+            const resultScreen = document.getElementById('result-screen');
+            const resultMessage = document.getElementById('result-message');
+            let currentPlayer = 'S';
+            let gameOver = false;
+
+            // Create the S.O.S board
+            for (let i = 0; i < 9; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'cell';
+                cell.dataset.index = i;
+                cell.addEventListener('click', handleCellClick);
+                board.appendChild(cell);
+            }
+
+            // Handle cell click
+            function handleCellClick(event) {
+                if (gameOver) return;
+
+                const cell = event.target;
+                const index = cell.dataset.index;
+
+                // Check if the cell is already filled
+                if (cell.textContent !== '') return;
+
+                // Update cell with the current player's symbol
+                cell.textContent = currentPlayer;
+
+                // Set background color based on the current player's symbol
+                cell.style.backgroundColor = currentPlayer === 'S' ? 'purple' : 'yellow';
+
+                // Check for a win or draw
+                if (checkWin()) {
+                    gameOver = true;
+                    displayResult(`Player ${currentPlayer} wins!`);
+                } else if (checkDraw()) {
+                    gameOver = true;
+                    displayResult('It\'s a draw!');
+                } else {
+                    // Switch to the other player
+                    currentPlayer = currentPlayer === 'S' ? 'O' : 'S';
+                }
+            }
+
+            // Check for a win
+            function checkWin() {
+                const cells = document.querySelectorAll('.cell');
+                const winningCombinations = [
+                    [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                    [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                    [0, 4, 8], [2, 4, 6]
+                ];
+
+                for (const combo of winningCombinations) {
+                    const [a, b, c] = combo;
+                    if (cells[a].textContent && cells[a].textContent === cells[b].textContent && cells[a].textContent === cells[c].textContent) {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+            // Check for a draw
+            function checkDraw() {
+                const cells = document.querySelectorAll('.cell');
+                for (const cell of cells) {
+                    if (cell.textContent === '') {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            // Display result on the screen
+            function displayResult(message) {
+                resultMessage.textContent = message;
+                resultScreen.style.display = 'flex';
+            }
+        });
+
+            // Start a new game
+            function startNewGame() {
+                const cells = document.querySelectorAll('.cell');
+                cells.forEach(cell => {
+                    cell.textContent = '';
+                    cell.style.backgroundColor = '#f0f0f0';
+                });
+
+                currentPlayer = 'S';
+                gameOver = false;
+
+                // Hide result screen
+                document.getElementById('result-screen').style.display = 'none';
+            }
+
+            function showGameMechanics() {
+                    const modal = document.getElementById('gameMechanicsModal');
+                    modal.style.display = 'block';
+                }
+
+            function closeGameMechanics() {
+                const modal = document.getElementById('gameMechanicsModal');
+                modal.style.display = 'none';
+            }
+
+            // Close the modal if the user clicks outside the modal
+            window.onclick = function (event) {
+                const modal = document.getElementById('gameMechanicsModal');
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            };
+
+            let soundEnabled = true;
+            let soundPlayer; // Define the sound player globally
+
+            function toggleSound() {
+                soundEnabled = !soundEnabled;
+                const musicSrc = "C:\Users\John Kenneth\OneDrive\Documents\ChildhoodGames\childhoodgames.mp3";
+
+                if (soundEnabled) {
+                    soundPlayer = new Audio(musicSrc);
+                    soundPlayer.loop = true;
+                    soundPlayer.play();
+                } else if (soundPlayer) {
+                    soundPlayer.pause();
+                }
+
+                document.getElementById('sound-icon-content').innerText = soundEnabled ? '🔊' : '🔇';
+            }
+
+            function goToIndexPage() {
+                // Redirect to the index page
+                window.location.href = 'index.html';
+            }
+</script>
+</body>
+</html>
