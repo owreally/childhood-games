@@ -2,22 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FLAMES</title>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Sans+MS&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400&display=swap">
 </head>
 
 <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-image: url('https://scontent.fmnl25-1.fna.fbcdn.net/v/t1.15752-9/411626854_736607491349327_6841481793930365469_n.png?_nc_cat=103&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeGDvXoemivo3egcQsMFJwhl9Wh3X8E0fv31aHdfwTR-_azhK_BF3xGIugwpznBPWBAonuxVmiv8sazOnzQQYpRd&_nc_ohc=VoScR3lv490AX8YFqZf&_nc_ht=scontent.fmnl25-1.fna&oh=03_AdTlfqV8OlvI5VVnVnkgDetFbNi0R21Be4szn-LuSDtFNA&oe=65BB65B6');
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
+    body {
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-family: 'Comic Sans MS', cursive;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('https://media.istockphoto.com/id/1299998230/vector/back-to-school-seamless-pattern-background.jpg?s=612x612&w=0&k=20&c=bo6MKVZuXvXrUSffhOU1XFbaz9xbMDG_t1dWfkSM8WE=');
+            background-size: auto 100%;
+            font-family: 'Roboto', sans-serif;
         }
 
         .container {
@@ -26,14 +25,14 @@
 
         .container h1 {
             position: absolute;
-            top: 200px;
-            left: 42%;
+            top: 180px;
+            left: 23%;
             transform: translateX(-50%);
             font-size: 50px;
             color: black;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             letter-spacing: 8px;
-            font-family: 'Comic Sans MS', cursive;
+            font-family: 'Roboto', sans-serif;
             animation: titleAnimation 1s infinite alternate; 
         }
 
@@ -59,7 +58,7 @@
         box-sizing: border-box;
         background :linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
         display: inline-block;
-        font-family: 'Comic Sans MS', cursive;
+        font-family: 'Roboto', sans-serif;
         font-size: 20px;
         color: #ffff;
         justify-content: center;
@@ -119,7 +118,6 @@
             border-radius: 50%;
             cursor: pointer;
             font-size: 20px;
-            border: none;
         }
 
         h2 {
@@ -162,13 +160,6 @@
             text-decoration: none;
         }
 
-        .input-group input {
-            border: 2px solid #3498db;
-            border-radius: 10px;
-            padding: 10px;
-            margin: 5px;
-        }
-
         #sound-icon-content {
             font-size: 30px;
             cursor: pointer;
@@ -188,46 +179,76 @@
             background-color: #3498db;
         }
 
+        .input-group input {
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            padding: 5px;
+            margin: 5px;
+            bottom: 10px;
+        }
+
+        #custom-gif {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            width: 50px; 
+            height: 50px; 
+            overflow: hidden;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.8); 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+        }
+
+        #custom-gif img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
 </style>
 
 <body>
-        <div class="video-container">
-            <div class="container">
-            <h1>FLAMES</h1></br>
-            <div class="input-group mb-3">
-                <input type="text" id="person1" placeholder="Enter Name 1">
-                <input type="text" id="person2" placeholder="Enter Name 2">
-                <br/>
-                <br/>
-                <button onclick="calculateFLAMES()" class="btss">Calculate</button>
-            </div>
-            <div class="result">
-                <p id="flamesResult"></p>
-            </div>
+    <div class="video-container">
+        <div class="container">
+        <h1>FLAMES</h1></br>
+        <div class="input-group mb-3">
+            <input type="text" id="person1" placeholder="Enter Name 1">
+            <input type="text" id="person2" placeholder="Enter Name 2">
+            <br/>
+            <br/>
+            <button onclick="calculateFLAMES()" class="btss">Calculate</button>
         </div>
-
-        <div id="backButton" onclick="goToIndexPage()">↩</div> 
-
-        <div class="game-mechanics-button" onclick="showGameMechanics()">❓</div>
-
-        <!-- Game mechanics modal -->
-        <div id="gameMechanicsModal">
-            <div class="modal-content">
-                <span class="close" onclick="closeGameMechanics()">&times;</span>
-                <h2>Game Mechanics</h2>
-                <p>The game involves crossing out common letters in the names of the two individuals and 
-                  counting the remaining letters to determine the relationship outcome. It's often played 
-                  for fun during leisure time or as a light-hearted activity during social gatherings.</p>
-                <p>1. Enter the names into both provided boxes.</p>
-                <p>2. Click the "calculate" button to determine the relationship between the entered names.</p>
-                <p>3. The names and their corresponding relationships will be displayed below.</p>
-            </div>
+        <div class="result">
+            <p id="flamesResult"></p>
         </div>
+    </div>
 
-        <div id="sound-icon" class="top-right" onclick="toggleSound()">
-            <span id="sound-icon-content" role="img" aria-label="Sound Icon">🔊</span>
+    <div id="backButton" onclick="goToGameMenuPage()">↩</div>
+
+    <div id="custom-gif" class="bottom-right">
+        <img src="https://media1.tenor.com/m/3g-vM1sZ2g4AAAAC/blush.gif" alt="Custom GIF">
+    </div>    
+
+    <div class="game-mechanics-button" onclick="showGameMechanics()">❓</div>
+
+    <!-- Game mechanics modal -->
+    <div id="gameMechanicsModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeGameMechanics()">&times;</span>
+            <h2>Game Mechanics</h2>
+            <p>The game involves crossing out common letters in the names of the two individuals and 
+                counting the remaining letters to determine the relationship outcome. It's often played 
+                for fun during leisure time or as a light-hearted activity during social gatherings.</p>
+            <p>1. Enter the names into both provided boxes.</p>
+            <p>2. Click the "calculate" button to determine the relationship between the entered names.</p>
+            <p>3. The names and their corresponding relationships will be displayed below.</p>
         </div>
-    
+    </div>
+
+    <div id="sound-icon" class="top-right" onclick="toggleSound()">
+        <span id="sound-icon-content" role="img" aria-label="Sound Icon">🔊</span>
+    </div>
+
 <script>
             function calculateFLAMES() {
                 const person1 = document.getElementById('person1').value.trim().toLowerCase().replace(/[^a-z]/g, '');
@@ -269,9 +290,9 @@
             }
 
             function showGameMechanics() {
-                const modal = document.getElementById('gameMechanicsModal');
-                modal.style.display = 'block';
-            }
+                    const modal = document.getElementById('gameMechanicsModal');
+                    modal.style.display = 'block';
+                }
 
             function closeGameMechanics() {
                 const modal = document.getElementById('gameMechanicsModal');
@@ -304,12 +325,10 @@
                 document.getElementById('sound-icon-content').innerText = soundEnabled ? '🔊' : '🔇';
             }
 
-            function goToIndexPage() {
+            function goToGameMenuPage() {
                 // Redirect to the index page
-                window.location.href = 'index.html';
+                window.location.href = 'game_menu.html';
             }
 </script>
 </body>
 </html>
-
-
