@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S.O.S</title>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Sans+MS&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400&display=swap">
 </head>
 
 <style>
@@ -14,22 +14,22 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background-image: url('https://scontent.fmnl25-1.fna.fbcdn.net/v/t1.15752-9/411988167_1391742778101052_3902323986252746642_n.png?_nc_cat=108&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeFabhGHdKqy4sZvbhH9i1hdEIZoDBJEN_8QhmgMEkQ3__hp2yAwl4sOIV4jROi4llDXhv7PKs_fnOAbqr1e2fDf&_nc_ohc=CcodTV-7dIMAX_2oTPb&_nc_ht=scontent.fmnl25-1.fna&oh=03_AdRGg16FvgiTH4mvHWQnBdGZi1ckBLmXBexsmpO8bh9Ldw&oe=65BB5720');
-            background-size: 100% auto;
-            font-family: 'Comic Sans MS', cursive;
+            background-image: url('https://media.istockphoto.com/id/1299998230/vector/back-to-school-seamless-pattern-background.jpg?s=612x612&w=0&k=20&c=bo6MKVZuXvXrUSffhOU1XFbaz9xbMDG_t1dWfkSM8WE=');
+            background-size: auto 100%;
+            font-family: 'Roboto', sans-serif;
         }
 
-        #title {
-        position: absolute;
-        top: 150px;
-        left: 44%;
-        transform: translateX(-50%);
-        font-size: 50px;
-        color: black;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        letter-spacing: 8px; 
-        font-family: 'Comic Sans MS', cursive;
-        animation: titleAnimation 1s infinite alternate; 
+        h1 {
+            position: absolute;
+            top: 80px;
+            left: 30%;
+            transform: translateX(-50%);
+            font-size: 50px;
+            color: black;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 8px;
+            font-family: 'Roboto', sans-serif;
+            animation: titleAnimation 1s infinite alternate; 
         }
 
         @keyframes titleAnimation {
@@ -54,10 +54,20 @@
             justify-content: center;
             font-size: 2em;
             font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
             border: 2px solid #333;
+            border-radius: 8px;
             cursor: pointer;
-            background-color: #f0f0f0;
+            
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
+
+        .cell:hover {
+            background-color: #e0e0e0;
+            transition: background-color 0.3s ease;
+        }
+
 
         #result-screen {
             display: none;
@@ -86,7 +96,7 @@
             font-size: 1em;
             cursor: pointer;
             border: none;
-            font-family: 'Comic Sans MS', cursive;
+            font-family: 'Roboto', sans-serif;
             transition: background 0.3s ease;
         }
 
@@ -184,10 +194,29 @@
         #sound-icon-content:hover {
             background-color: #3498db;
         }
+
+        #custom-gif {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            width: 50px; 
+            height: 50px; 
+            overflow: hidden;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.8); 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #custom-gif img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
 </style>
 
 <body>
-    <div id="title">S.O.S</div>
+    <h1>S.O.S</h1></br>
     <div id="board"></div>
     <div id="result-screen">
         <div id="result-message"></div>
@@ -196,7 +225,11 @@
         </div>
     </div>
 
-    <div id="backButton" onclick="goToIndexPage()">↩</div>
+    <div id="backButton" onclick="goToGameMenuPage()">↩</div>
+
+    <div id="custom-gif" class="bottom-right">
+        <img src="https://www.icegif.com/wp-content/uploads/2023/10/icegif-822.gif" alt="Custom GIF">
+    </div>    
 
     <div class="game-mechanics-button" onclick="showGameMechanics()">❓</div>
 
@@ -353,9 +386,9 @@
                 document.getElementById('sound-icon-content').innerText = soundEnabled ? '🔊' : '🔇';
             }
 
-            function goToIndexPage() {
+            function goToGameMenuPage() {
                 // Redirect to the index page
-                window.location.href = 'index.html';
+                window.location.href = 'game_menu.html';
             }
 </script>
 </body>
