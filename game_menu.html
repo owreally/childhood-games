@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Childhood Games</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Slackey&display=swap">
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Sans+MS&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400&display=swap">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-w1csGqG4JSy4M5PQVIBwCJ8MApXU9L6n5ERlyuvH8MXG90+1XYVezBJEwMSPXcVe/MtPI9+dtXykYt3UFrZp8A==" crossorigin="anonymous" />
 </head>
@@ -18,7 +18,7 @@
         body {
         background-image: url('https://scontent.fmnl25-2.fna.fbcdn.net/v/t1.15752-9/411834249_745198220353703_7633152762843100258_n.png?_nc_cat=102&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeGoiTONbxCVLd7YWU1AiZysS81a0Cg7oSBLzVrQKDuhIAtsj_0rA8PNaoEqdiO4JKh8h4ucd86Ayrca7RHPreyY&_nc_ohc=wVvD30KuP68AX-0h42t&_nc_ht=scontent.fmnl25-2.fna&oh=03_AdS65pa5a9nP9Os7QIt5ogeZl4ZblvTgiJZydZJkrnrIWw&oe=65BB3366');
         background-size: 100% auto;
-        font-family: 'Slackey', cursive;
+        font-family: 'Roboto', sans-serif;
         }
 
         .container {
@@ -95,7 +95,7 @@
             left: 5%;
             transform: translate(-50%, -50%);
             font-family: 'Slackey', cursive;
-            font-size: 3em;
+            font-size: 2.5em;
             margin: 0;
             position: relative;
             animation: buzz 0.1s alternate infinite;
@@ -131,7 +131,7 @@
         border-radius: 10px; 
         text-align: center;
         max-width: 400px;
-        font-family: 'Comic Sans MS', cursive;
+        font-family: 'Roboto', sans-serif;
         }
 
         h2 {
@@ -147,7 +147,7 @@
         float: right;
         font-size: 28px;
         font-weight: bold;
-        font-family: 'Comic Sans MS', cursive;
+        font-family: 'Roboto', sans-serif;
         }
 
         .close:hover,
@@ -199,7 +199,7 @@
         border-radius: 10px;
         text-align: center;
         max-width: 400px;
-        font-family: 'Comic Sans MS', cursive;
+        font-family: 'Roboto', sans-serif;
         }
 
         #gameMechanicsModal .close {
@@ -207,7 +207,7 @@
         float: right;
         font-size: 28px;
         font-weight: bold;
-        font-family: 'Comic Sans MS', cursive;
+        font-family: 'Roboto', sans-serif;
         }
 
         #gameMechanicsModal .close:hover,
@@ -215,7 +215,7 @@
         color: #000;
         text-decoration: none;
         cursor: pointer;
-        font-family: 'Comic Sans MS', cursive;
+        font-family: 'Roboto', sans-serif;
         }
 
         #soundIcon,#musicIcon {
@@ -243,7 +243,7 @@
             border-radius: 100px;
             margin: 10px; 
             display: inline-block;
-            font-family: 'Comic Sans MS', cursive;
+            font-family: 'Roboto', sans-serif;
             font-size: 40px;
             justify-content: center;
             padding: 7px 20px;
@@ -489,13 +489,6 @@
     };
     }
 
-    function exitGame() {
-    var confirmExit = confirm('Are you sure you want to exit?');
-    if (confirmExit) {
-        window.top.close();
-    }
-    }
-
      document.addEventListener("mousemove", function(e) {
             // Get the position of the cursor relative to the window
             var x = e.clientX / window.innerWidth;
@@ -507,6 +500,13 @@
             // Set the color of the h1 tag using HSL, limiting it to white, black, and yellow
             document.querySelector("h1").style.color = "hsl(" + hue + ", 100%, 50%)";
         });
+
+    function exitGame() {
+    var confirmExit = confirm('Are you sure you want to exit?');
+    if (confirmExit) {
+        window.close();
+    }
+    }
 </script>
 </body>
 </html>
